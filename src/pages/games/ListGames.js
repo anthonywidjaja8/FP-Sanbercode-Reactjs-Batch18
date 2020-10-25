@@ -1,0 +1,38 @@
+import React, { useContext } from "react"
+import { GameContext } from "../../context/GameContext"
+import { List, Card } from "antd"
+import { Link } from "react-router-dom"
+const {Meta} = Card
+
+const ListGames = () => {
+    const [listGames, , ,] = useContext(GameContext)
+
+    return(
+        <>
+        {
+            listGames !== null &&                
+            <List
+                grid={{ gutter: 20, column: 4 }}
+                dataSource={listGames}
+                renderItem={item => (
+                    <List.Item>
+                        <Card hoverable
+                            cover={<img alt={item.id} src={item.image_url} width="150px" height="300px"/>}>
+                                <Meta title={item.name}/>
+                                <br/>
+                                <div>
+                                    {item.release}
+                                    {<button style={{backgroundColor: "white", border: "none", float: "right"}}>
+                                    <Link to={`/games/${item.id}`}>View More</Link>
+                                    </button>}
+                                </div>
+                        </Card>
+                    </List.Item>
+                )}
+            />
+        }
+        </>
+    )
+}
+
+export default ListGames 
